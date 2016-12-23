@@ -7,10 +7,14 @@
     }
 
     void CommandParser::parse(char* str, bool debug=false) {
-      Serial.println(F(""));
-      Serial.print(F("CommandParser.parse("));
-      Serial.print(str);
-      Serial.println(F(")"));
+	this->debug = debug;
+	    
+	if (this->debug) {
+	      Serial.println(F(""));
+	      Serial.print(F("CommandParser.parse("));
+	      Serial.print(str);
+	      Serial.println(F(")"));
+	}
 
       this->clear();
 
@@ -34,14 +38,17 @@
         this->command();
         //this->data();
         this->length();
-        Serial.print(F("free memory: ")); Serial.println(freeMemory());
+        Serial.print(F("free memory: "));
+        Serial.println(freeMemory());
       }
     }
 
     byte CommandParser::command(){
       //Serial.println(F("CommandParser.getCommand()"));
-      Serial.print(F("command: "));
-      Serial.println(this->_command);
+      if (debug) {
+	Serial.print(F("command: "));
+	Serial.println(this->_command);
+	}
       return this->_command;
     }
 
@@ -54,21 +61,26 @@
 //      }
 //      return d;
 
-      Serial.print(F("data: "));
-      for (int i=0; i < this->_counter; i++) 
-      {
-        //Serial.print(i); Serial.print(F(":"));
-        Serial.print(this->_data[i]); Serial.print(F("-"));
-      }
-      Serial.println(F(""));
+	if (this->debug) {
+	      Serial.print(F("data: "));
+	      for (int i=0; i < this->_counter; i++) 
+	      {
+		//Serial.print(i); Serial.print(F(":"));
+		Serial.print(this->_data[i]);
+		Serial.print(F("-"));
+	      }
+	      Serial.println(F(""));
+	}
 
       return this->_data;
     }
 
     int CommandParser::length() {
       //Serial.println(F("CommandParser.getDataCount()"));
-      Serial.print(F("data count: "));
-      Serial.println(this->_counter);
+      if (this->debug) {
+	Serial.print(F("data count: "));
+	Serial.println(this->_counter);
+	}
       return this->_counter;
     }
 
