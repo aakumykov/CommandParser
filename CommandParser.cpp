@@ -1,9 +1,9 @@
 #include "CommandParser.h"
 
     CommandParser::CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter) {
-      this->_data = new int[max_input_len];
-      this->_command_delimiter = command_delimiter;
-      this->_data_delimiter = data_delimiter;
+		this->_data = new int[max_input_len];
+		this->_command_delimiter = command_delimiter;
+		this->_data_delimiter = data_delimiter;
     }
 
     void CommandParser::parse(char* str, bool debug=false) {
