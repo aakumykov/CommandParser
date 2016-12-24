@@ -10,6 +10,7 @@
 	this->debug = debug;
 	    
 	if (this->debug) {
+		  //~ Serial.println(F("CommandParser.parse()"));
 	      Serial.println(F(""));
 	      Serial.print(F("CommandParser.parse("));
 	      Serial.print(str);
@@ -36,10 +37,8 @@
 
       if (debug) {
         this->command();
-        //this->data();
+        this->data();
         this->length();
-        Serial.print(F("free memory: "));
-        Serial.println(freeMemory());
       }
     }
 
@@ -63,7 +62,7 @@
 
 	if (this->debug) {
 	      Serial.print(F("data: "));
-	      for (int i=0; i < this->_counter; i++) 
+	      for (int i=0; i < this->_counter; i++)
 	      {
 		//Serial.print(i); Serial.print(F(":"));
 		Serial.print(this->_data[i]);
