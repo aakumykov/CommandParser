@@ -9,8 +9,8 @@ class CommandParser
   public:
     CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter);
     void parse(char* str, bool debug=false);
-    byte command();
-    int* data();
+    unsigned int command();
+    unsigned int* data();
     int length();
     
   private:
@@ -18,7 +18,7 @@ class CommandParser
 	char* _data_delimiter;
 
 	unsigned long _command;
-	int* _data;
+	unsigned int* _data;
 	int _counter = 0;
 
 	bool debug = false;
