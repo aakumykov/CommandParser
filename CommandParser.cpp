@@ -20,7 +20,8 @@ void CommandParser::parse(char* str, bool debug=false) {
 	this->clear();
 
 	char* raw_command = strtok(str, this->_command_delimiter);
-	Serial.print(F("raw_command: ")); Serial.println(raw_command);
+	
+		//Serial.print(F("raw_command: ")); Serial.println(raw_command);
 	
 	this->_command = atoi(raw_command);
 	//this->_command = (unsigned long)(raw_command);
