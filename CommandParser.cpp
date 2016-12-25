@@ -1,9 +1,10 @@
 #include "CommandParser.h"
 
-CommandParser::CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter) {
+CommandParser::CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter, char* mode_delimiter) {
 	this->_data = new int[max_input_len];
 	this->_command_delimiter = command_delimiter;
 	this->_data_delimiter = data_delimiter;
+	this->_mode_delimiter = mode_delimiter;
 }
 
 void CommandParser::parse(char* str, bool debug=false) {
@@ -27,6 +28,9 @@ void CommandParser::parse(char* str, bool debug=false) {
 	//this->_command = (unsigned long)(raw_command);
 	  
 	char* raw_data_piece = strtok(NULL, this->_data_delimiter);
+	
+	this->convertDataPiece(raw_data_piece);
+	
 	int data_piece = atoi(raw_data_piece);
 	  
 	while (NULL != raw_data_piece) {
@@ -88,4 +92,13 @@ int CommandParser::length() {
 void CommandParser::clear() {
 	//Serial.println(F("CommandParser.clear()"));
 	this->_counter = 0;
+}
+
+void CommandParser::convertDataPiece(char* data_piece) {
+	char* dp_clone = new char
+	char* mode = strtok(data_piece, this->_mode_delimiter);
+	char* data = strtok(NULL, this->_mode_delimiter);
+	
+	Serial.print(F("mode: ")); Serial.println(mode);
+	Serial.print(F("data: ")); Serial.println(data);
 }

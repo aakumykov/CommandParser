@@ -7,7 +7,7 @@
 class CommandParser
 {
   public:
-    CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter);
+    CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter, char* mode_delimiter);
     void parse(char* str, bool debug=false);
     unsigned int command();
     unsigned int* data();
@@ -16,6 +16,7 @@ class CommandParser
   private:
 	char* _command_delimiter;
 	char* _data_delimiter;
+	char* _mode_delimiter;
 
 	unsigned long _command;
 	unsigned int* _data;
@@ -24,6 +25,7 @@ class CommandParser
 	bool debug = false;
 
 	void clear();
+	void convertDataPiece(char* data_piece);
 };
 
 #endif
