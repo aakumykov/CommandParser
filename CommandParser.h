@@ -7,25 +7,29 @@
 class CommandParser
 {
   public:
-    CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter, char* mode_delimiter);
-    void parse(char* str, bool debug=false);
+    CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter, char mode_delimiter, char mode_sign);
+    
+    unsigned short* data();
     unsigned int command();
-    unsigned int* data();
     int length();
+    
+    void parse(char* str, bool debug=false);
     
   private:
 	char* _command_delimiter;
 	char* _data_delimiter;
-	char* _mode_delimiter;
+	char _mode_sign;
+	char _mode_delimiter;
 
 	unsigned long _command;
-	unsigned int* _data;
+	unsigned short* _data;
 	int _counter = 0;
 
 	bool debug = false;
 
 	void clear();
-	void convertDataPiece(char* data_piece);
+	unsigned short CommandParser::convertCoord(char* str);
+	unsigned short CommandParser::a2us(char* str);
 };
 
 #endif
