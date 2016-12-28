@@ -12,8 +12,7 @@ CommandParser::CommandParser(int max_input_len, char* command_delimiter, char* d
 void CommandParser::parse(char* str, bool debug=false) {
 	this->debug = debug;
 		
-	if (this->debug) {
-		  //~ Serial.println(F("CommandParser.parse()"));
+	if (debug) {
 		  Serial.println(F(""));
 		  Serial.print(F("CommandParser.parse("));
 		  Serial.print(str);
@@ -24,7 +23,10 @@ void CommandParser::parse(char* str, bool debug=false) {
 
 	char* raw_command = strtok(str, this->_command_delimiter);
 
+	if (debug) {
 		Serial.print(F("raw_command: ")); Serial.println(raw_command);
+		Serial.println(F(""));
+	}
 	
 	this->_command = atoi(raw_command);
 	  
@@ -33,11 +35,6 @@ void CommandParser::parse(char* str, bool debug=false) {
 	unsigned int data_piece = this->convertCoord(raw_data_piece);
 		
 	while (NULL != raw_data_piece) {
-		if (debug) {
-			Serial.println(F(""));
-			Serial.print(F("raw_data_piece: ")); Serial.println(raw_data_piece);
-			Serial.print(F("data_piece: ")); Serial.println(data_piece);
-		}
 		
 		this->_data[this->_counter++] = data_piece;
 		
@@ -103,26 +100,31 @@ void CommandParser::clear() {
 }
 
 unsigned short CommandParser::convertCoord(char* str) {
+	Serial.print(F("CommandParser::convertCoord("));
+	 Serial.print(str);
+	Serial.println(F(")"));
+	
 	char modeToken[2] = { this->_mode_sign, this->_mode_delimiter };
 	bool switchON = ( 0 != strspn(str, modeToken) );
+	
+		Serial.print(F("switchON: ")); Serial.println(switchON);
 
-	char* data = strchr(str, ':') + 1;
+	char* xy_data = strchr(str, ':') + 1;
 
-	unsigned short num_data = this->a2us(data);
+	unsigned short num_data = this->a2us(xy_data);
+	
+	//!!! delete xy_data;
 
 	if (debug) {
-		//Serial.print(F("num_data: ")); Serial.print(num_data);
+		Serial.print(F("num_data: ")); Serial.println(num_data);
 	}
 
 	if (switchON) {
 		num_data += 32768;
-		//if (debug) Serial.print(F(", switchON, "));
-	} else {
-		//if (debug) Serial.print(F(", switchOFF, "));
 	}
 
 	if (debug) {
-		//Serial.print(F("num_data: ")); Serial.println(num_data);
+		Serial.print(F("num_data: ")); Serial.println(num_data);
 	}
 
 	return num_data;
