@@ -10,6 +10,9 @@ void setup() {
   Serial.print(F("free memory: ")); Serial.println(freeMemory());
   
   p.parse("2|N:0,N:0,Y:0,Y:1000,Y:1000,Y:1000,Y:1000,Y:0,Y:0,Y:0", true);
+  
+  // Как сделать такое?
+  // 1|N:0,0_Y:0,1000_Y:1000,1000_Y:1000,0_Y:0,0;
 }
 
 void loop() {
