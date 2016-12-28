@@ -9,7 +9,7 @@ class CommandParser
   public:
     CommandParser(int max_input_len, char* command_delimiter, char* data_delimiter, char mode_delimiter, char mode_sign);
     
-    unsigned short* data();
+    unsigned short* data(bool debug=false);
     unsigned int command();
     int length();
     
