@@ -32,15 +32,13 @@ void CommandParser::parse(char* str, bool debug=false) {
 	  
 	char* raw_data_piece = strtok(NULL, this->_data_delimiter);
 
-	unsigned int data_piece = this->convertCoord(raw_data_piece);
+	this->processCoordinate(raw_data_piece);
 		
 	while (NULL != raw_data_piece) {
 		
-		this->_data[this->_counter++] = data_piece;
-		
 		raw_data_piece = strtok(NULL, this->_data_delimiter);
 		
-		data_piece = this->convertCoord(raw_data_piece);
+		this->processCoordinate(raw_data_piece);
 	}
 
 	if (debug) {
@@ -99,8 +97,8 @@ void CommandParser::clear() {
 	this->_counter = 0;
 }
 
-unsigned short CommandParser::convertCoord(char* str) {
-	Serial.print(F("CommandParser::convertCoord("));
+void CommandParser::processCoordinate(char* str) {
+	Serial.print(F("CommandParser::processCoordinate("));
 	 Serial.print(str);
 	Serial.println(F(")"));
 	
@@ -110,24 +108,33 @@ unsigned short CommandParser::convertCoord(char* str) {
 		Serial.print(F("switchON: ")); Serial.println(switchON);
 
 	char* xy_data = strchr(str, ':') + 1;
-
-	unsigned short num_data = this->a2us(xy_data);
 	
-	//!!! delete xy_data;
+		Serial.print(F("xy_data: ")); Serial.println(xy_data);
+	
+	byte x_width = strcspn(xy_data,",");
+		
+		//Serial.print(F("x_width: ")); Serial.println(x_width);
+	
+	char* raw_x = new char[x_width];
+	strncpy(raw_x, xy_data, x_width);
+	unsigned int x = this->a2us(raw_x);
+		
+		//Serial.print(F("raw_x: ")); Serial.println(raw_x);
+	
+	char* raw_y = strchr(xy_data, ',') + 1;
+	unsigned int y = this->a2us(raw_y);	
+		
+		//Serial.print(F("raw_y: ")); Serial.println(raw_y);
+		
+		Serial.print(F("x and y: ")); Serial.print(x); Serial.print(F(" and ")); Serial.println(y);
 
-	if (debug) {
-		Serial.print(F("num_data: ")); Serial.println(num_data);
-	}
+	delete xy_data, raw_x, raw_y;
 
 	if (switchON) {
-		num_data += 32768;
+		x += 32768;
 	}
-
-	if (debug) {
-		Serial.print(F("num_data: ")); Serial.println(num_data);
-	}
-
-	return num_data;
+	
+	
 }
 
 unsigned short CommandParser::a2us(char* str) {

@@ -28,7 +28,7 @@ class CommandParser
 	bool debug = false;
 
 	void clear();
-	unsigned short CommandParser::convertCoord(char* str);
+	void CommandParser::processCoordinate(char* str);
 	unsigned short CommandParser::a2us(char* str);
 };
 
