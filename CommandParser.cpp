@@ -117,6 +117,9 @@ void CommandParser::processCoordinate(char* str) {
 		Serial.println(F(")"));
 	//}
 	
+	// Костыльная защита от пустых данных на конце (откуда они появляются?).
+	if (strlen(str) < 5) return;
+	
 	char modeToken[2] = { this->_mode_sign, this->_mode_delimiter };
 	bool switchON = ( 0 != strspn(str, modeToken) );
 	
