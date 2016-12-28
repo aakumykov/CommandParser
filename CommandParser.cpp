@@ -12,7 +12,7 @@ CommandParser::CommandParser(int max_input_len, char* command_delimiter, char* d
 void CommandParser::parse(char* str, bool debug=false) {
 	this->debug = debug;
 		
-		if (debug) {
+		if (this->debug) {
 			  Serial.println(F(""));
 			  Serial.print(F("CommandParser.parse("));
 			  Serial.print(str);
@@ -23,7 +23,7 @@ void CommandParser::parse(char* str, bool debug=false) {
 
 	char* raw_command = strtok(str, this->_command_delimiter);
 	
-		if (debug) {
+		if (this->debug) {
 			Serial.print(F("raw_command: ")); Serial.println(raw_command);
 			Serial.println(F(""));
 		}
@@ -58,7 +58,7 @@ void CommandParser::parse(char* str, bool debug=false) {
 		this->processCoordinate(raw_data_piece);
 	}
 
-	if (debug) {
+	if (this->debug) {
 		Serial.println(F(""));
 		this->command();
 		this->data();
@@ -73,7 +73,6 @@ unsigned short* CommandParser::data(bool debug=false) {
 		Serial.print(F("data: "));
 		for (int i=0; i < this->_counter; i++)
 		{
-			//Serial.print(i); Serial.print(F(":"));
 			Serial.print(this->_data[i]);
 			Serial.print(F("-"));
 		}
@@ -85,7 +84,7 @@ unsigned short* CommandParser::data(bool debug=false) {
 
 unsigned int CommandParser::command(){
 	//Serial.println(F("CommandParser.getCommand()"));
-	if (debug) {
+	if (this->debug) {
 		Serial.print(F("command: "));
 		Serial.println(this->_command);
 	}
@@ -93,7 +92,7 @@ unsigned int CommandParser::command(){
 }
 
 int CommandParser::length() {
-  //Serial.println(F("CommandParser.getDataCount()"));
+	//Serial.println(F("CommandParser.getDataCount()"));
 	if (this->debug) {
 		Serial.print(F("data count: "));
 		Serial.println(this->_counter);
@@ -108,14 +107,14 @@ void CommandParser::clear() {
 }
 
 void CommandParser::processCoordinate(char* str) {
-	//if (this->debug) {
+	if (this->debug) {
 		Serial.print(F("CommandParser::processCoordinate("));
 		 Serial.print(str);
 		 Serial.print(F(" ("));
 		 Serial.print(strlen(str));
 		 Serial.print(F(")"));
 		Serial.println(F(")"));
-	//}
+	}
 	
 	// Костыльная защита от пустых данных на конце (откуда они появляются?).
 	if (strlen(str) < 5) return;
