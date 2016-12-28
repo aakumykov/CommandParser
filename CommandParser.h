@@ -16,20 +16,20 @@ class CommandParser
     void parse(char* str, bool debug=false);
     
   private:
-	char* _command_delimiter;
-	char* _data_delimiter;
-	char _mode_sign;
-	char _mode_delimiter;
+    char* _command_delimiter;
+    char* _data_delimiter;
+    char _mode_sign;
+    char _mode_delimiter;
 
-	unsigned long _command;
-	unsigned short* _data;
-	int _counter = 0;
+    unsigned long _command;
+    unsigned short* _data;
+    int _counter = 0;
 
-	bool debug = false;
+    bool debug = false;
 
-	void clear();
-	void CommandParser::processCoordinate(char* str);
-	unsigned short CommandParser::a2us(char* str);
+    void clear();
+    void CommandParser::processCoordinate(char* str);
+    unsigned short CommandParser::a2us(char* str);
 };
 
 #endif

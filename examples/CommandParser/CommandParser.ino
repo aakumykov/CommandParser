@@ -9,13 +9,8 @@ void setup() {
 
   Serial.print(F("free memory: ")); Serial.println(freeMemory());
   
-  // Как сделать такое?
-  // 1|N:0,0_Y:0,1000_Y:1000,1000_Y:1000,0_Y:0,0
-  //p.parse("1|N:10,0_Y:100,1000", false);
   char input_data[] = "1|N:0,0_Y:0,1000_Y:1000,1000_Y:1000,0_Y:0,0";
-  
   Serial.print(F("input_data: ")); Serial.println(input_data);
-  
   p.parse(input_data, false);
 
   Serial.print(F("command: "));

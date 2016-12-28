@@ -12,31 +12,48 @@ CommandParser::CommandParser(int max_input_len, char* command_delimiter, char* d
 void CommandParser::parse(char* str, bool debug=false) {
 	this->debug = debug;
 		
-	if (debug) {
-		  Serial.println(F(""));
-		  Serial.print(F("CommandParser.parse("));
-		  Serial.print(str);
-		  Serial.println(F(")"));
-	}
+		if (debug) {
+			  Serial.println(F(""));
+			  Serial.print(F("CommandParser.parse("));
+			  Serial.print(str);
+			  Serial.println(F(")"));
+		}
 
 	this->clear();
 
 	char* raw_command = strtok(str, this->_command_delimiter);
-
-	if (debug) {
-		Serial.print(F("raw_command: ")); Serial.println(raw_command);
-		Serial.println(F(""));
-	}
 	
+		if (debug) {
+			Serial.print(F("raw_command: ")); Serial.println(raw_command);
+			Serial.println(F(""));
+		}
+		
 	this->_command = atoi(raw_command);
 	  
 	char* raw_data_piece = strtok(NULL, this->_data_delimiter);
+	
+		//~ Serial.print(F("raw_data_piece: |")); 
+		//~ Serial.print(raw_data_piece);
+		//~ Serial.print(F("| ("));
+		//~ Serial.print(byte(raw_data_piece[0]));
+		//~ Serial.print(F(") ("));
+		//~ Serial.print(strlen(raw_data_piece));
+		//~ Serial.println(F(")"));
 
 	this->processCoordinate(raw_data_piece);
 		
 	while (NULL != raw_data_piece) {
+		//if (strlen(raw_data_piece) < 5 ) continue;
 		
 		raw_data_piece = strtok(NULL, this->_data_delimiter);
+		
+			//~ Serial.print(F("raw_data_piece: |")); 
+			//~ Serial.print(raw_data_piece);
+			//~ Serial.print(F("| ("));
+			//~ Serial.print(byte(raw_data_piece[0]));
+			//~ Serial.print(F(") ("));
+			//~ Serial.print(strlen(raw_data_piece));
+			//~ Serial.println(F(")"));
 		
 		this->processCoordinate(raw_data_piece);
 	}
@@ -51,14 +68,7 @@ void CommandParser::parse(char* str, bool debug=false) {
 
 
 unsigned short* CommandParser::data(bool debug=false) {
-//      Serial.println(F("CommandParser.getData()"));
-
-//      int* d = new int[this->_counter];
-//      for (int i=0; i < this->_counter; i++) {
-//        d[i] = this->_data[i];
-//      }
-//      return d;
-
+	
 	if (debug) {
 		Serial.print(F("data: "));
 		for (int i=0; i < this->_counter; i++)
@@ -98,11 +108,14 @@ void CommandParser::clear() {
 }
 
 void CommandParser::processCoordinate(char* str) {
-	if (this->debug) {
+	//if (this->debug) {
 		Serial.print(F("CommandParser::processCoordinate("));
 		 Serial.print(str);
+		 Serial.print(F(" ("));
+		 Serial.print(strlen(str));
+		 Serial.print(F(")"));
 		Serial.println(F(")"));
-	}
+	//}
 	
 	char modeToken[2] = { this->_mode_sign, this->_mode_delimiter };
 	bool switchON = ( 0 != strspn(str, modeToken) );
