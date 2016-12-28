@@ -24,8 +24,7 @@ void CommandParser::parse(char* str, bool debug=false) {
 	char* raw_command = strtok(str, this->_command_delimiter);
 	
 		if (this->debug) {
-			Serial.print(F("raw_command: ")); Serial.println(raw_command);
-			Serial.println(F(""));
+			//~ Serial.print(F("raw_command: ")); Serial.println(raw_command);
 		}
 		
 	this->_command = atoi(raw_command);
@@ -59,7 +58,7 @@ void CommandParser::parse(char* str, bool debug=false) {
 	}
 
 	if (this->debug) {
-		Serial.println(F(""));
+		//Serial.println(F(""));
 		this->command();
 		this->data();
 		this->length();
@@ -108,12 +107,12 @@ void CommandParser::clear() {
 
 void CommandParser::processCoordinate(char* str) {
 	if (this->debug) {
-		Serial.print(F("CommandParser::processCoordinate("));
-		 Serial.print(str);
-		 Serial.print(F(" ("));
-		 Serial.print(strlen(str));
-		 Serial.print(F(")"));
-		Serial.println(F(")"));
+		//~ Serial.print(F("CommandParser::processCoordinate("));
+		 //~ Serial.print(str);
+		 //~ Serial.print(F(" ("));
+		 //~ Serial.print(strlen(str));
+		 //~ Serial.print(F(")"));
+		//~ Serial.println(F(")"));
 	}
 	
 	// Костыльная защита от пустых данных на конце (откуда они появляются?).
@@ -122,11 +121,11 @@ void CommandParser::processCoordinate(char* str) {
 	char modeToken[2] = { this->_mode_sign, this->_mode_delimiter };
 	bool switchON = ( 0 != strspn(str, modeToken) );
 	
-		if (this->debug) { Serial.print(F("switchON: ")); Serial.println(switchON); }
+		//if (this->debug) { Serial.print(F("switchON: ")); Serial.println(switchON); }
 
 	char* xy_data = strchr(str, ':') + 1;
 	
-		if (this->debug) { Serial.print(F("xy_data: ")); Serial.println(xy_data); }
+		//if (this->debug) { Serial.print(F("xy_data: ")); Serial.println(xy_data); }
 	
 	byte x_width = strcspn(xy_data,",");
 		
@@ -144,7 +143,7 @@ void CommandParser::processCoordinate(char* str) {
 		//if (this->debug) { Serial.print(F("raw_y: ")); Serial.println(raw_y); }
 		
 		if (this->debug) { 
-			Serial.print(F("x and y: ")); Serial.print(x); Serial.print(F(" and ")); Serial.println(y);
+			//Serial.print(F("x and y: ")); Serial.print(x); Serial.print(F(" and ")); Serial.println(y);
 		}
 
 	delete xy_data, raw_x, raw_y;
